@@ -1,0 +1,74 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  jsonLd?: object;
+}
+
+const { title, description, canonical, jsonLd } = Astro.props;
+const siteUrl = 'https://av-zulassungsservice.de';
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:image" content={`${siteUrl}/logo.png`} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-white text-charcoal-900 font-sans">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- Mobile sticky CTA -->
+    <div id="mobile-cta" class="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-crimson-500 shadow-[0_-4px_20px_rgba(0,0,0,0.15)]">
+      <a
+        href="tel:+498921892809"
+        class="flex items-center justify-center gap-3 px-4 py-4 text-white font-semibold text-sm active:bg-crimson-600 transition-colors"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>
+        Jetzt anrufen: +49 89 218 92 809
+      </a>
+    </div>
+  </body>
+</html>

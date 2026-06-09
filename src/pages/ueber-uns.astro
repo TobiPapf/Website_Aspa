@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://av-zulassungsservice.de" },
+    { "@type": "ListItem", "position": 2, "name": "Über Uns",   "item": "https://av-zulassungsservice.de/ueber-uns" },
+  ]
+};
+---
+
+<BaseLayout
+  title="Über Uns – AV KFZ Zulassungsservice München"
+  description="Lernen Sie das Team hinter dem AV KFZ Zulassungsservice kennen. Seit über 20 Jahren Ihr verlässlicher Partner für KFZ-Zulassungen in München."
+  canonical="https://av-zulassungsservice.de/ueber-uns"
+  jsonLd={jsonLd}
+>
+
+  <!-- Page header -->
+  <section class="bg-charcoal-900 pt-14 pb-16 lg:pt-20 lg:pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-xs text-charcoal-400 mb-6" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2">
+          <li><a href="/" class="hover:text-white transition-colors">Startseite</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-white">Über Uns</li>
+        </ol>
+      </nav>
+      <h1 class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
+        Über Uns
+      </h1>
+      <p class="text-charcoal-400 text-lg max-w-2xl leading-relaxed">
+        Ihr verlässlicher KFZ-Zulassungsservice in München – mit Erfahrung, Kompetenz und persönlichem Service.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="bg-white py-16 lg:py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="grid md:grid-cols-2 gap-8 mb-16">
+        <div class="bg-crimson-50 rounded-2xl p-8 border border-crimson-100">
+          <div class="text-4xl font-extrabold text-crimson-500 mb-2">20+</div>
+          <div class="font-semibold text-charcoal-900">Jahre Erfahrung</div>
+          <p class="text-sm text-charcoal-500 mt-2 leading-relaxed">Seit über zwei Jahrzehnten vertreten wir unsere Kunden beim Straßenverkehrsamt München.</p>
+        </div>
+        <div class="bg-charcoal-50 rounded-2xl p-8 border border-charcoal-100">
+          <div class="text-4xl font-extrabold text-charcoal-900 mb-2">5.000+</div>
+          <div class="font-semibold text-charcoal-900">Zulassungen jährlich</div>
+          <p class="text-sm text-charcoal-500 mt-2 leading-relaxed">Für Privatpersonen, Händler und Fuhrparkbetreiber aus ganz München und Umgebung.</p>
+        </div>
+      </div>
+
+      <div class="prose prose-lg max-w-none">
+        <p class="text-section-label mb-2">
+          <span class="section-label">Unsere Geschichte</span>
+        </p>
+        <h2 class="text-2xl font-extrabold text-charcoal-900 tracking-tight mb-4">
+          Erfahrung, die zählt.
+        </h2>
+        <p class="text-charcoal-500 leading-relaxed mb-6">
+          Der AV KFZ Zulassungs- und Versicherungsservice ist seit über 20 Jahren fester Bestandteil
+          der Münchner Dienstleistungslandschaft. Was als kleiner Zulassungsservice begann, hat sich
+          zu einem erfahrenen Team entwickelt, das täglich zahlreiche Kunden beim Straßenverkehrsamt
+          vertritt.
+        </p>
+        <p class="text-charcoal-500 leading-relaxed mb-6">
+          Unser Antrieb ist einfach: Kein Kunde sollte wertvolle Zeit im Wartezimmer eines Amtes
+          verbringen müssen, wenn wir das für ihn erledigen können – schneller, zuverlässiger
+          und stressfreier.
+        </p>
+
+        <div class="w-full h-px bg-charcoal-100 my-10"></div>
+
+        <h2 class="text-2xl font-extrabold text-charcoal-900 tracking-tight mb-6">
+          Unsere Werte
+        </h2>
+
+        <div class="grid sm:grid-cols-2 gap-5 not-prose mb-10">
+          {[
+            { title: 'Zuverlässigkeit',  desc: 'Wir halten Zusagen ein. Pünktliche Erledigung und transparente Kommunikation sind für uns selbstverständlich.' },
+            { title: 'Schnelligkeit',    desc: 'Wir wissen, dass Zeit wertvoll ist. In vielen Fällen erledigen wir Aufträge noch am selben Tag.' },
+            { title: 'Kompetenz',        desc: 'Unser Team kennt alle Prozesse beim Münchner Straßenverkehrsamt – keine Überraschungen, keine Verzögerungen.' },
+            { title: 'Transparenz',      desc: 'Keine versteckten Kosten, keine Überraschungen. Sie wissen immer, was wir für Sie tun und was es kostet.' },
+          ].map(({ title, desc }) => (
+            <div class="flex gap-4 p-5 rounded-xl border border-charcoal-100">
+              <div class="flex-shrink-0 w-1 rounded-full bg-crimson-500 self-stretch"></div>
+              <div>
+                <h3 class="font-bold text-charcoal-900 mb-1 text-sm">{title}</h3>
+                <p class="text-charcoal-500 text-sm leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="bg-charcoal-900 rounded-2xl p-8 text-center not-prose">
+          <p class="text-charcoal-400 text-sm mb-2">Fragen? Wir sind persönlich für Sie da.</p>
+          <p class="text-2xl font-bold text-white mb-4">
+            <a href="tel:+498921892809" class="hover:text-crimson-200 transition-colors">+49 89 218 92 809</a>
+          </p>
+          <a href="/kontakt" class="btn-primary text-sm">
+            Kontaktformular öffnen
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

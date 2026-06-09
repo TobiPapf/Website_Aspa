@@ -1,0 +1,118 @@
+---
+const services = [
+  { label: 'Neuzulassung',        href: '/services#neuzulassung'       },
+  { label: 'Ummeldung',           href: '/services#ummeldung'           },
+  { label: 'Abmeldung',           href: '/services#abmeldung'           },
+  { label: 'Wiederzulassung',     href: '/services#wiederzulassung'     },
+  { label: 'Wunschkennzeichen',   href: '/services#wunschkennzeichen'   },
+  { label: 'Versicherungsservice',href: '/services#versicherung'        },
+];
+---
+
+<footer class="bg-charcoal-900 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+
+      <!-- Brand -->
+      <div class="sm:col-span-2 lg:col-span-1">
+        <img
+          src="/logo.png"
+          alt="AV KFZ Zulassungsservice"
+          class="h-10 w-auto brightness-0 invert mb-4"
+        />
+        <p class="text-charcoal-400 text-sm leading-relaxed max-w-xs">
+          Ihr zuverlässiger Partner für KFZ-Zulassungen und Versicherungen in München –
+          schnell, professionell und ohne Amtsgang.
+        </p>
+      </div>
+
+      <!-- Leistungen -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-widest text-charcoal-300 mb-4">
+          Leistungen
+        </h3>
+        <ul class="space-y-2.5">
+          {services.map(({ label, href }) => (
+            <li>
+              <a
+                href={href}
+                class="text-sm text-charcoal-400 hover:text-white transition-colors"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Kontakt -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-widest text-charcoal-300 mb-4">
+          Kontakt
+        </h3>
+        <address class="not-italic space-y-2.5 text-sm text-charcoal-400">
+          <p class="leading-relaxed">
+            Ludwigshafener Str. 7<br />
+            80686 München
+          </p>
+          <p>
+            <a href="tel:+498921892809" class="hover:text-white transition-colors">
+              +49 89 218 92 809
+            </a>
+          </p>
+          <p>
+            <a href="tel:+4915735700222" class="hover:text-white transition-colors">
+              +49 157 35 700 222
+            </a>
+          </p>
+          <p>
+            <a href="mailto:info@av-zulassungsservice.de" class="hover:text-white transition-colors">
+              info@av-zulassungsservice.de
+            </a>
+          </p>
+        </address>
+      </div>
+
+      <!-- Öffnungszeiten -->
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-widest text-charcoal-300 mb-4">
+          Öffnungszeiten
+        </h3>
+        <dl class="space-y-2 text-sm text-charcoal-400">
+          <div class="flex justify-between gap-4">
+            <dt>Mo – Fr</dt>
+            <dd class="text-white font-medium">08:00 – 18:00</dd>
+          </div>
+          <div class="flex justify-between gap-4">
+            <dt>Samstag</dt>
+            <dd class="text-white font-medium">09:00 – 13:00</dd>
+          </div>
+          <div class="flex justify-between gap-4">
+            <dt>Sonntag</dt>
+            <dd>Geschlossen</dd>
+          </div>
+        </dl>
+        <div class="mt-5">
+          <a href="/kontakt" class="btn-primary text-sm !py-2.5 !px-4">
+            Jetzt kontaktieren
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-xs text-charcoal-500">
+        © {new Date().getFullYear()} AV KFZ Zulassungs- und Versicherungsservice. Alle Rechte vorbehalten.
+      </p>
+      <div class="flex items-center gap-6 text-xs">
+        <a href="/datenschutz" class="text-charcoal-500 hover:text-white transition-colors">
+          Datenschutz
+        </a>
+        <a href="/impressum" class="text-charcoal-500 hover:text-white transition-colors">
+          Impressum
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

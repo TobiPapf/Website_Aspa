@@ -1,0 +1,141 @@
+---
+const pathname = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/',           label: 'Startseite' },
+  { href: '/services',   label: 'Leistungen' },
+  { href: '/formulare',  label: 'Formulare'  },
+  { href: '/ueber-uns',  label: 'Über Uns'   },
+  { href: '/kontakt',    label: 'Kontakt'    },
+];
+
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<header
+  id="site-header"
+  class="sticky top-0 z-50 bg-white border-b border-charcoal-100 transition-shadow duration-300"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+
+      <!-- Logo -->
+      <a href="/" class="flex-shrink-0" aria-label="AV KFZ Zulassungsservice – Startseite">
+        <img
+          src="/logo.png"
+          alt="AV KFZ Zulassungs- und Versicherungsservice"
+          class="h-10 lg:h-12 w-auto"
+        />
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden lg:flex items-center gap-1" aria-label="Hauptnavigation">
+        {navLinks.map(({ href, label }) => (
+          <a
+            href={href}
+            class={`px-4 py-2 text-sm font-medium rounded-md transition-colors duration-150 ${
+              isActive(href)
+                ? 'text-crimson-500 bg-crimson-50'
+                : 'text-charcoal-600 hover:text-crimson-500 hover:bg-charcoal-50'
+            }`}
+            aria-current={isActive(href) ? 'page' : undefined}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Phone (desktop) -->
+      <div class="hidden lg:flex flex-col items-end gap-0.5">
+        <span class="text-[10px] font-medium text-charcoal-400 uppercase tracking-widest">
+          Jetzt anrufen
+        </span>
+        <a
+          href="tel:+498921892809"
+          class="text-base font-bold text-crimson-500 hover:text-crimson-600 transition-colors"
+        >
+          +49 89 218 92 809
+        </a>
+      </div>
+
+      <!-- Mobile: phone icon + hamburger -->
+      <div class="flex items-center gap-3 lg:hidden">
+        <a
+          href="tel:+498921892809"
+          class="flex items-center justify-center w-9 h-9 rounded-lg bg-crimson-50 text-crimson-500"
+          aria-label="Anrufen"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+        </a>
+        <button
+          id="menu-btn"
+          class="flex flex-col items-center justify-center w-9 h-9 gap-1.5 rounded-lg hover:bg-charcoal-50 transition-colors"
+          aria-label="Menü öffnen"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span class="menu-bar block w-5 h-0.5 bg-charcoal-700 transition-all duration-200"></span>
+          <span class="menu-bar block w-5 h-0.5 bg-charcoal-700 transition-all duration-200"></span>
+          <span class="menu-bar block w-5 h-0.5 bg-charcoal-700 transition-all duration-200"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden lg:hidden border-t border-charcoal-100 bg-white"
+    aria-label="Mobile Navigation"
+  >
+    <nav class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class={`px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+            isActive(href)
+              ? 'text-crimson-500 bg-crimson-50'
+              : 'text-charcoal-700 hover:bg-charcoal-50'
+          }`}
+          aria-current={isActive(href) ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      ))}
+      <div class="mt-3 pt-3 border-t border-charcoal-100">
+        <a href="tel:+498921892809" class="flex items-center gap-2 px-4 py-3 text-sm font-bold text-crimson-500">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+          +49 89 218 92 809
+        </a>
+        <a href="mailto:info@av-zulassungsservice.de" class="flex items-center gap-2 px-4 py-2 text-sm text-charcoal-500">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          info@av-zulassungsservice.de
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  // Sticky shadow on scroll
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('shadow-md', window.scrollY > 8);
+  }, { passive: true });
+
+  // Mobile menu toggle
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+  });
+</script>

@@ -1,0 +1,368 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "AV KFZ Zulassungs- und Versicherungsservice",
+  "image": "https://av-zulassungsservice.de/logo.png",
+  "url": "https://av-zulassungsservice.de",
+  "telephone": "+498921892809",
+  "email": "info@av-zulassungsservice.de",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Ludwigshafener Str. 7",
+    "addressLocality": "München",
+    "postalCode": "80686",
+    "addressCountry": "DE"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "13:00" }
+  ],
+  "priceRange": "€€",
+  "description": "Professioneller KFZ-Zulassungsservice in München. Neuzulassung, Ummeldung, Abmeldung und Versicherungsservice ohne Amtsgang."
+};
+
+const services = [
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>`,
+    title: 'Neuzulassung',
+    desc: 'Neu erworbenes Fahrzeug erstmals anmelden – wir erledigen alles direkt beim Straßenverkehrsamt.',
+    href: '/services#neuzulassung',
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>`,
+    title: 'Ummeldung',
+    desc: 'Fahrzeug auf neuen Halter oder neue Adresse umschreiben – unkompliziert und schnell.',
+    href: '/services#ummeldung',
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>`,
+    title: 'Abmeldung',
+    desc: 'Fahrzeug außer Betrieb setzen – sofortige Abmeldung von Steuer und Versicherung.',
+    href: '/services#abmeldung',
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>`,
+    title: 'Wiederzulassung',
+    desc: 'Abgemeldetes Fahrzeug wieder in Betrieb nehmen – mit oder ohne altes Kennzeichen.',
+    href: '/services#wiederzulassung',
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>`,
+    title: 'Wunschkennzeichen',
+    desc: 'Individuelle Kombination reservieren und direkt ausgeben lassen.',
+    href: '/services#wunschkennzeichen',
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>`,
+    title: 'Kurzzeitkennzeichen',
+    desc: 'Überführungs- und Kurzzeitkennzeichen für bis zu 5 Tage. Ideal für Überführungen.',
+    href: '/services#kurzzeitkennzeichen',
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>`,
+    title: 'Versicherungsservice',
+    desc: 'Unabhängige Kfz-Versicherungsberatung und Vermittlung – wir vergleichen für Sie.',
+    href: '/services#versicherung',
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>`,
+    title: 'Export-Zulassung',
+    desc: 'Fahrzeug für den Export ins Ausland anmelden – rote Kennzeichen und korrekte Abmeldung.',
+    href: '/services#export',
+  },
+];
+---
+
+<BaseLayout
+  title="AV KFZ Zulassungsservice München – Neuzulassung, Ummeldung & Abmeldung"
+  description="Professioneller KFZ-Zulassungsservice in München. Neuzulassung, Ummeldung, Abmeldung ohne Amtsgang. Schnell, zuverlässig – für Privat & Gewerbe."
+  canonical="https://av-zulassungsservice.de"
+  jsonLd={jsonLd}
+>
+
+  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <section class="relative overflow-hidden bg-white pt-14 pb-16 lg:pt-20 lg:pb-24">
+    <!-- Background accent shape -->
+    <div
+      class="absolute inset-y-0 right-0 w-5/12 bg-crimson-50 pointer-events-none hidden lg:block"
+      style="clip-path: polygon(12% 0, 100% 0, 100% 100%, 0% 100%)"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+        <!-- Copy -->
+        <div>
+          <p class="section-label">München · Seit über 20 Jahren</p>
+          <h1 class="text-5xl sm:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-extrabold text-charcoal-900 leading-[1.06] tracking-tightest mb-6">
+            KFZ-Zulassung<br />
+            <span class="text-crimson-500">ohne Amtsgang.</span>
+          </h1>
+          <p class="text-lg text-charcoal-500 leading-relaxed mb-8 max-w-lg">
+            Wir erledigen Ihre Neuzulassung, Ummeldung und Abmeldung direkt
+            beim Straßenverkehrsamt – ohne dass Sie selbst erscheinen müssen.
+          </p>
+          <div class="flex flex-wrap gap-3 mb-10">
+            <a href="/kontakt" class="btn-primary">
+              Jetzt beauftragen
+            </a>
+            <a href="/services" class="btn-secondary">
+              Alle Leistungen
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+          <!-- Trust bullets -->
+          <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-charcoal-500">
+            {['Kein Amt-Stress', 'Same-Day möglich', 'Für Privat & Gewerbe'].map(t => (
+              <li class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-crimson-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Contact card -->
+        <div class="relative">
+          <div class="bg-white rounded-2xl border border-charcoal-100 shadow-[0_20px_60px_-10px_rgba(0,0,0,0.12)] p-7 lg:p-8">
+            <h2 class="text-xl font-bold text-charcoal-900 mb-6">Schnellkontakt</h2>
+            <div class="space-y-5">
+              <!-- Festnetz -->
+              <a href="tel:+498921892809" class="flex items-start gap-4 group">
+                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-crimson-50 flex items-center justify-center group-hover:bg-crimson-500 transition-colors">
+                  <svg class="w-5 h-5 text-crimson-500 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-charcoal-400 mb-0.5">Festnetz</p>
+                  <p class="font-semibold text-charcoal-900 group-hover:text-crimson-500 transition-colors">+49 89 218 92 809</p>
+                </div>
+              </a>
+              <!-- Mobil -->
+              <a href="tel:+4915735700222" class="flex items-start gap-4 group">
+                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-crimson-50 flex items-center justify-center group-hover:bg-crimson-500 transition-colors">
+                  <svg class="w-5 h-5 text-crimson-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-charcoal-400 mb-0.5">Mobil</p>
+                  <p class="font-semibold text-charcoal-900 group-hover:text-crimson-500 transition-colors">+49 157 35 700 222</p>
+                </div>
+              </a>
+              <!-- Adresse -->
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-crimson-50 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-crimson-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-charcoal-400 mb-0.5">Adresse</p>
+                  <p class="font-semibold text-charcoal-900 text-sm">Ludwigshafener Str. 7<br />80686 München</p>
+                </div>
+              </div>
+              <!-- Öffnungszeiten -->
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-crimson-50 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-crimson-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-charcoal-400 mb-0.5">Öffnungszeiten</p>
+                  <p class="text-sm text-charcoal-700">Mo – Fr: <strong>08:00 – 18:00</strong></p>
+                  <p class="text-sm text-charcoal-700">Samstag: <strong>09:00 – 13:00</strong></p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-7 pt-5 border-t border-charcoal-100">
+              <a href="/kontakt" class="btn-primary w-full text-center">
+                Kontaktformular öffnen
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS BAR ─────────────────────────────────────────── -->
+  <section class="bg-charcoal-900 py-10" aria-label="Kennzahlen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <dl class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        {[
+          { value: '20+',         label: 'Jahre Erfahrung'     },
+          { value: '5.000+',      label: 'Zulassungen jährlich'},
+          { value: 'Mo – Sa',     label: 'Geöffnet'            },
+          { value: 'München',     label: 'Ihr lokaler Partner' },
+        ].map(({ value, label }) => (
+          <div class="text-center">
+            <dt class="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">{value}</dt>
+            <dd class="mt-1 text-sm text-charcoal-400">{label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- ─── IN 3 SCHRITTEN ────────────────────────────────────── -->
+  <section class="bg-white py-16 lg:py-24" aria-labelledby="steps-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <p class="section-label mx-auto justify-center">So einfach geht's</p>
+        <h2 id="steps-heading" class="text-3xl lg:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+          In 3 Schritten zum Ziel
+        </h2>
+      </div>
+
+      <div class="relative grid md:grid-cols-3 gap-8">
+        <!-- Connector line (desktop) -->
+        <div class="hidden md:block absolute top-8 left-[calc(16.67%+1.5rem)] right-[calc(16.67%+1.5rem)] h-px bg-charcoal-100" aria-hidden="true"></div>
+
+        {[
+          {
+            step: '01',
+            title: 'Kontakt aufnehmen',
+            desc: 'Rufen Sie uns an, schreiben Sie uns eine E-Mail oder nutzen Sie unser Kontaktformular – wir melden uns umgehend.',
+          },
+          {
+            step: '02',
+            title: 'Wir erledigen alles',
+            desc: 'Sie übergeben uns die nötigen Unterlagen. Wir gehen zum Amt, erledigen die Zulassung und halten Sie auf dem Laufenden.',
+          },
+          {
+            step: '03',
+            title: 'Fertig – kein Stress',
+            desc: 'Ihr Fahrzeug ist zugelassen. Sie erhalten die Dokumente und Kennzeichen direkt von uns – ohne einen einzigen Amtstermin.',
+          },
+        ].map(({ step, title, desc }) => (
+          <div class="relative flex flex-col items-center text-center">
+            <div class="relative z-10 flex items-center justify-center w-16 h-16 rounded-full bg-crimson-50 border-4 border-white shadow-sm mb-6">
+              <span class="text-xl font-extrabold text-crimson-500">{step}</span>
+            </div>
+            <h3 class="text-lg font-bold text-charcoal-900 mb-3">{title}</h3>
+            <p class="text-charcoal-500 text-sm leading-relaxed max-w-xs">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SERVICES ─────────────────────────────────────────── -->
+  <section class="bg-crimson-50 py-16 lg:py-24" aria-labelledby="services-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+        <div>
+          <p class="section-label">Was wir für Sie tun</p>
+          <h2 id="services-heading" class="text-3xl lg:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+            Unsere Leistungen
+          </h2>
+        </div>
+        <a href="/services" class="btn-secondary text-sm self-start sm:self-auto flex-shrink-0">
+          Alle Leistungen ansehen →
+        </a>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {services.map(({ icon, title, desc, href }) => (
+          <a
+            href={href}
+            class="group bg-white rounded-xl border border-charcoal-100 p-6 hover:border-crimson-200 hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-200"
+          >
+            <div class="w-10 h-10 rounded-lg bg-crimson-50 flex items-center justify-center mb-4 group-hover:bg-crimson-500 transition-colors">
+              <svg class="w-5 h-5 text-crimson-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={icon} />
+            </div>
+            <h3 class="font-bold text-charcoal-900 mb-2 text-sm">{title}</h3>
+            <p class="text-charcoal-500 text-xs leading-relaxed">{desc}</p>
+            <p class="mt-3 text-xs font-semibold text-crimson-500 group-hover:gap-2 flex items-center gap-1 transition-all">
+              Mehr erfahren
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ÜBER UNS TEASER ───────────────────────────────────── -->
+  <section class="bg-white py-16 lg:py-24" aria-labelledby="about-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div>
+          <p class="section-label">Wer wir sind</p>
+          <h2 id="about-heading" class="text-3xl lg:text-4xl font-extrabold text-charcoal-900 tracking-tight mb-6">
+            Erfahrung, auf die Sie sich verlassen können.
+          </h2>
+          <p class="text-charcoal-500 leading-relaxed mb-5">
+            Seit über 20 Jahren sind wir der zuverlässige Zulassungsservice für Privatpersonen
+            und Gewerbetreibende in München. Unser erfahrenes Team kennt jeden Handgriff beim
+            Straßenverkehrsamt und erledigt Ihr Anliegen effizient und korrekt.
+          </p>
+          <p class="text-charcoal-500 leading-relaxed mb-8">
+            Ob Einzelperson oder Fuhrpark-Manager: Wir behandeln jeden Auftrag mit der gleichen
+            Sorgfalt und informieren Sie transparent über jeden Schritt.
+          </p>
+          <a href="/ueber-uns" class="btn-secondary">
+            Mehr über uns
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Values grid -->
+        <div class="grid grid-cols-2 gap-4">
+          {[
+            { title: 'Zuverlässigkeit',  desc: 'Pünktliche Erledigung, transparente Kommunikation.' },
+            { title: 'Schnelligkeit',    desc: 'In vielen Fällen Same-Day oder Next-Day Service.'   },
+            { title: 'Kompetenz',        desc: 'Über 20 Jahre Erfahrung beim Münchner Amt.'         },
+            { title: 'Vertrauen',        desc: 'Persönliche Betreuung – kein Callcenter.'           },
+          ].map(({ title, desc }) => (
+            <div class="bg-charcoal-50 rounded-xl p-5 border border-charcoal-100">
+              <div class="w-8 h-0.5 bg-crimson-500 mb-4"></div>
+              <h3 class="font-bold text-charcoal-900 text-sm mb-2">{title}</h3>
+              <p class="text-xs text-charcoal-500 leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA BANNER ───────────────────────────────────────── -->
+  <section class="bg-crimson-500 py-14 lg:py-20" aria-labelledby="cta-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 id="cta-heading" class="text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-4">
+        Bereit? Wir kümmern uns um alles.
+      </h2>
+      <p class="text-white/75 text-lg mb-8 max-w-xl mx-auto">
+        Kontaktieren Sie uns noch heute – wir erledigen Ihre Zulassung schnell und unkompliziert.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/kontakt" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-crimson-500 font-bold rounded-lg hover:bg-charcoal-50 active:scale-[0.98] transition-all duration-150 shadow-lg text-sm">
+          Kontaktformular öffnen
+        </a>
+        <a href="tel:+498921892809" class="btn-outline-white text-sm">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+          +49 89 218 92 809
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

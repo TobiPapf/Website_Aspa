@@ -1,0 +1,216 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://av-zulassungsservice.de" },
+    { "@type": "ListItem", "position": 2, "name": "Leistungen",  "item": "https://av-zulassungsservice.de/services" },
+  ]
+};
+
+const services = [
+  {
+    id: 'neuzulassung',
+    title: 'Neuzulassung',
+    subtitle: 'Neu erworbenes Fahrzeug anmelden',
+    desc: 'Sie haben ein Fahrzeug neu gekauft oder importiert? Wir kümmern uns um die erstmalige Zulassung beim Straßenverkehrsamt München – inklusive Kennzeichenausgabe und Zulassungsbescheinigung.',
+    docs: ['Zulassungsbescheinigung Teil II (Fahrzeugbrief)', 'eVB-Nummer (elektronische Versicherungsbestätigung)', 'Hauptuntersuchung (HU/AU-Bericht)', 'Personalausweis oder Reisepass', 'SEPA-Lastschriftmandat für Kfz-Steuer'],
+    faqs: [
+      { q: 'Wie lange dauert eine Neuzulassung?', a: 'In der Regel erledigen wir eine Neuzulassung am selben oder nächsten Werktag, sobald alle Unterlagen vorliegen.' },
+      { q: 'Was kostet der Service?', a: 'Unsere Servicegebühr ist abhängig vom Leistungsumfang. Kontaktieren Sie uns für ein konkretes Angebot.' },
+    ],
+  },
+  {
+    id: 'ummeldung',
+    title: 'Ummeldung / Halterwechsel',
+    subtitle: 'Fahrzeug auf neuen Halter umschreiben',
+    desc: 'Fahrzeug gekauft oder verkauft? Wir schreiben das Fahrzeug zuverlässig auf den neuen Halter um. Gilt auch bei einem Umzug innerhalb Münchens.',
+    docs: ['Zulassungsbescheinigung Teil I und II', 'Personalausweis des neuen Halters', 'eVB-Nummer des neuen Versicherers', 'SEPA-Lastschriftmandat'],
+    faqs: [
+      { q: 'Was passiert mit dem alten Kennzeichen?', a: 'Das alte Kennzeichen kann in vielen Fällen beibehalten werden. Alternativ vergeben wir ein neues – auch als Wunschkennzeichen.' },
+      { q: 'Muss ich persönlich dabei sein?', a: 'Nein. Mit einer Vollmacht und den notwendigen Unterlagen erledigen wir alles ohne Ihr persönliches Erscheinen.' },
+    ],
+  },
+  {
+    id: 'abmeldung',
+    title: 'Abmeldung',
+    subtitle: 'Fahrzeug außer Betrieb setzen',
+    desc: 'Fahrzeug verkauft, verschrottet oder langfristig außer Betrieb? Wir melden es sofort ab – inklusive Abmeldung von Kfz-Steuer und Versicherung.',
+    docs: ['Zulassungsbescheinigung Teil I', 'Kennzeichen', 'Personalausweis'],
+    faqs: [
+      { q: 'Wann endet die Kfz-Steuer?', a: 'Ab dem Tag der Abmeldung. Wir stellen Ihnen die Abmeldebestätigung aus, die Sie beim Finanzamt einreichen können.' },
+    ],
+  },
+  {
+    id: 'wiederzulassung',
+    title: 'Wiederzulassung',
+    subtitle: 'Abgemeldetes Fahrzeug wieder anmelden',
+    desc: 'Sie möchten ein abgemeldetes Fahrzeug wieder in Betrieb nehmen? Wir übernehmen die Wiederzulassung – mit altem oder neuem Kennzeichen.',
+    docs: ['Zulassungsbescheinigung Teil I und II', 'eVB-Nummer', 'Gültige HU', 'Personalausweis'],
+    faqs: [
+      { q: 'Kann ich mein altes Kennzeichen behalten?', a: 'Ja, sofern das Kennzeichen noch reserviert ist oder innerhalb von 12 Monaten nach der Abmeldung wieder zugelassen wird.' },
+    ],
+  },
+  {
+    id: 'wunschkennzeichen',
+    title: 'Wunschkennzeichen',
+    subtitle: 'Individuelle Kombination reservieren',
+    desc: 'Sichern Sie sich Ihr persönliches Kennzeichen. Wir prüfen die Verfügbarkeit, reservieren Ihre Wunschkombination und sorgen für die Ausgabe direkt beim Amt.',
+    docs: ['Zulassungsunterlagen des Fahrzeugs', 'Personalausweis'],
+    faqs: [
+      { q: 'Wie finde ich heraus, ob mein Wunschkennzeichen verfügbar ist?', a: 'Sprechen Sie uns an – wir prüfen die Verfügbarkeit sofort und kostenfrei.' },
+    ],
+  },
+  {
+    id: 'kurzzeitkennzeichen',
+    title: 'Kurzzeitkennzeichen',
+    subtitle: 'Temporäre Zulassung für Überführungen',
+    desc: 'Sie brauchen ein Überführungs- oder Prüfungskennzeichen? Wir besorgen Kurzzeitkennzeichen (bis 5 Tage Gültigkeit) für Überführungsfahrten, Probefahrten und Neuanschaffungen.',
+    docs: ['Personalausweis', 'eVB-Nummer', 'Fahrzeugbrief (wenn vorhanden)'],
+    faqs: [
+      { q: 'Wie schnell bekomme ich ein Kurzzeitkennzeichen?', a: 'Meist noch am selben Tag, sobald alle Unterlagen vorliegen.' },
+    ],
+  },
+  {
+    id: 'versicherung',
+    title: 'Versicherungsservice',
+    subtitle: 'Unabhängige Kfz-Versicherungsberatung',
+    desc: 'Als Versicherungsservice beraten wir Sie unabhängig bei der Wahl Ihrer Kfz-Versicherung. Wir vergleichen Angebote verschiedener Anbieter und vermitteln die für Sie passende Lösung.',
+    docs: ['Fahrzeugdaten (Marke, Modell, Erstzulassung)', 'Bisherige Schadensfreiheitsklasse (SF-Klasse)', 'Personalausweis'],
+    faqs: [
+      { q: 'Welche Versicherungsarten bieten Sie an?', a: 'Haftpflicht, Teilkasko und Vollkasko – wir beraten Sie zu allen gängigen Kfz-Versicherungsformen.' },
+    ],
+  },
+  {
+    id: 'export',
+    title: 'Export-Zulassung',
+    subtitle: 'Fahrzeug für den Export anmelden',
+    desc: 'Sie exportieren ein Fahrzeug ins Ausland? Wir beantragen rote Exportkennzeichen und sorgen für die ordnungsgemäße Abmeldung und die notwendigen Export-Dokumente.',
+    docs: ['Fahrzeugbrief', 'Personalausweis', 'Kaufvertrag (bei Bedarf)'],
+    faqs: [
+      { q: 'Welche Kennzeichen werden für den Export benötigt?', a: 'In der Regel rote Exportkennzeichen mit begrenzter Gültigkeitsdauer. Die genauen Anforderungen besprechen wir mit Ihnen individuell.' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Leistungen – AV KFZ Zulassungsservice München"
+  description="Alle Leistungen des AV KFZ Zulassungsservice: Neuzulassung, Ummeldung, Abmeldung, Wunschkennzeichen, Versicherungsservice und mehr – ohne Amtsgang."
+  canonical="https://av-zulassungsservice.de/services"
+  jsonLd={jsonLd}
+>
+
+  <!-- Page header -->
+  <section class="bg-charcoal-900 pt-14 pb-16 lg:pt-20 lg:pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-xs text-charcoal-400 mb-6" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2">
+          <li><a href="/" class="hover:text-white transition-colors">Startseite</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-white">Leistungen</li>
+        </ol>
+      </nav>
+      <h1 class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
+        Unsere Leistungen
+      </h1>
+      <p class="text-charcoal-400 text-lg max-w-2xl leading-relaxed">
+        Von der Neuzulassung bis zur Export-Abmeldung – wir erledigen alle Kfz-Behördengänge
+        zuverlässig und ohne dass Sie selbst erscheinen müssen.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services list -->
+  <section class="bg-white py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Jump links -->
+      <nav class="flex flex-wrap gap-2 mb-14 pb-8 border-b border-charcoal-100" aria-label="Zu Leistung springen">
+        {services.map(({ id, title }) => (
+          <a
+            href={`#${id}`}
+            class="px-3 py-1.5 text-xs font-medium rounded-full border border-charcoal-200 text-charcoal-600 hover:border-crimson-500 hover:text-crimson-500 transition-colors"
+          >
+            {title}
+          </a>
+        ))}
+      </nav>
+
+      <div class="space-y-20">
+        {services.map(({ id, title, subtitle, desc, docs, faqs }) => (
+          <article id={id} class="scroll-mt-24">
+            <div class="grid lg:grid-cols-3 gap-10 lg:gap-16">
+              <!-- Main -->
+              <div class="lg:col-span-2">
+                <p class="text-xs font-semibold uppercase tracking-widest text-crimson-500 mb-2">{subtitle}</p>
+                <h2 class="text-2xl lg:text-3xl font-extrabold text-charcoal-900 tracking-tight mb-4">{title}</h2>
+                <p class="text-charcoal-500 leading-relaxed mb-8">{desc}</p>
+
+                <!-- FAQ accordion -->
+                {faqs.length > 0 && (
+                  <div class="space-y-3">
+                    <h3 class="text-sm font-semibold text-charcoal-700 uppercase tracking-wider mb-4">Häufige Fragen</h3>
+                    {faqs.map(({ q, a }) => (
+                      <details class="group border border-charcoal-100 rounded-lg overflow-hidden">
+                        <summary class="flex items-center justify-between px-5 py-4 cursor-pointer select-none list-none font-medium text-charcoal-700 hover:bg-charcoal-50 transition-colors text-sm">
+                          {q}
+                          <svg class="w-4 h-4 text-charcoal-400 flex-shrink-0 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                          </svg>
+                        </summary>
+                        <div class="px-5 pb-4 pt-1 text-sm text-charcoal-500 leading-relaxed border-t border-charcoal-100 bg-charcoal-50">
+                          {a}
+                        </div>
+                      </details>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <!-- Sidebar: Benötigte Unterlagen -->
+              <aside>
+                <div class="bg-crimson-50 rounded-xl border border-crimson-100 p-6 sticky top-24">
+                  <h3 class="text-sm font-bold text-charcoal-900 mb-4 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-crimson-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                    Benötigte Unterlagen
+                  </h3>
+                  <ul class="space-y-2">
+                    {docs.map(doc => (
+                      <li class="flex items-start gap-2 text-xs text-charcoal-600">
+                        <svg class="w-3.5 h-3.5 text-crimson-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        {doc}
+                      </li>
+                    ))}
+                  </ul>
+                  <div class="mt-5 pt-4 border-t border-crimson-100">
+                    <a href="/kontakt" class="btn-primary w-full text-center text-sm !py-2.5">
+                      Jetzt beauftragen
+                    </a>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-crimson-500 py-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-extrabold text-white tracking-tight mb-4">Ihre Leistung nicht dabei?</h2>
+      <p class="text-white/75 mb-6">Sprechen Sie uns an – wir finden immer eine Lösung.</p>
+      <a href="/kontakt" class="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-crimson-500 font-bold rounded-lg hover:bg-charcoal-50 transition-colors text-sm">
+        Kontakt aufnehmen
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
